@@ -1,0 +1,53 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Pulls in icu_ext extension
+        run: |
+            wget https://github.com/dverite/icu_ext/archive/refs/tags/v1.6.2.tar.gz
+            filename=$(ls *.tar.gz)
+            echo "$filename"
+            tar xvzf "$filename"
+            foldername=$(ls -d */)
+            mkdir "$foldername"/DEBIAN/
+            printf "Package: postgresql-13-icu-ext\n\
+            Version: 1.0.0\n\
+            Section: database\n\
+            Priority: optional\n\
+            Architecture: amd64\n\
+            Depends: postgresql-13\n\
+            Maintainer: Stevan Vanderwerf <github@vanderling.com>\n\
+            Description: PostgreSQL extension exposing functionality from the ICU library\n\
+             icu_ext is an extension to expose functionality from ICU to PostgreSQL\n\
+             applications.\n" > "$foldername"/DEBIAN/control
+
+            sudo apt-get update && apt install build-essential libicu-dev \
+                postgresql-server-dev-${postgres_version} -y --no-install-recommends
+            cd "$foldername" && make clean && make install
+
+            cd ../  && dpkg-deb --build "$foldername"
+            dpkg -i *.deb
+            ls *.deb
+            echo "finished successfully"
