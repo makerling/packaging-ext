@@ -47,7 +47,6 @@ jobs:
                 postgresql-server-dev-${postgres_version} -y --no-install-recommends
             cd "$foldername" && make clean && make install
 
-            cd ../  && dpkg-deb --build "$foldername"
-            dpkg -i *.deb
+            cd ../  && sudo dpkg-deb --build "$foldername"
             ls *.deb
             echo "finished successfully"
