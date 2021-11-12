@@ -55,13 +55,13 @@ jobs:
                 
             pwd
             cd "$foldername"            
-            echo "running make clean in:"
+            echo "running make in:"
             pwd
             echo "contents of working directory:"
             ls
-            make clean 
+            make 
             echo "running make install"
-            make install
+            sudo make install
 
             cd ../ && sudo dpkg-deb --build "$foldername"
             ls *.deb
