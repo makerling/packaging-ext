@@ -44,9 +44,10 @@ jobs:
              applications.\n" > "$foldername"/DEBIAN/control
 
             sudo apt-get update && apt install build-essential libicu-dev \
-                postgresql-server-dev-${postgres_version} -y --no-install-recommends
+                postgresql-server-dev-13 -y --no-install-recommends
             cd "$foldername" && make clean && make install
 
-            cd ../  && sudo dpkg-deb --build "$foldername"
+            cd ../
+            sudo dpkg-deb --build "$foldername"
             ls *.deb
             echo "finished successfully"
