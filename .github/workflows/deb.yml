@@ -42,7 +42,12 @@ jobs:
             Description: PostgreSQL extension exposing functionality from the ICU library\n\
              icu_ext is an extension to expose functionality from ICU to PostgreSQL\n\
              applications.\n" > "$foldername"/DEBIAN/control
-
+            
+            # import postgres repository key
+            sudo apt install curl ca-certificates gnupg
+            curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
+            # creating package list for repo
+            sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
             sudo apt-get update && sudo apt install build-essential libicu-dev \
                 postgresql-server-dev-13 -y --no-install-recommends
             cd "$foldername" && make clean && make install
