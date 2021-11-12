@@ -31,6 +31,7 @@ jobs:
             echo "$filename"
             tar xvzf "$filename"
             foldername=$(ls -d */)
+            echo "$foldername"
             mkdir "$foldername"/DEBIAN/
             printf "Package: postgresql-13-icu-ext\n\
             Version: 1.0.0\n\
@@ -50,7 +51,12 @@ jobs:
             sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
             sudo apt-get update && sudo apt install build-essential libicu-dev \
                 postgresql-server-dev-13 -y --no-install-recommends
-            cd "$foldername" && make clean && make install
+                
+            pwd
+            cd "$foldername"            
+            echo "running make clean in:"
+            pwd
+            make clean && make install
 
             cd ../ && sudo dpkg-deb --build "$foldername"
             ls *.deb
