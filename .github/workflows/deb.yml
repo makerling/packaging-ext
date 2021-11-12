@@ -56,6 +56,8 @@ jobs:
             cd "$foldername"            
             echo "running make clean in:"
             pwd
+            echo "contents of working directory:"
+            ls
             make clean && make install
 
             cd ../ && sudo dpkg-deb --build "$foldername"
