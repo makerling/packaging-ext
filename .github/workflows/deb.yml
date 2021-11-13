@@ -33,7 +33,7 @@ jobs:
             foldername=$(ls -d */)
             echo "$foldername"
             mkdir "$foldername"/DEBIAN/
-            printf "Package: postgresql-13-pg_jobmon\n\
+            printf "Package: postgresql-13-pg-jobmon\n\
             Version: 1.0.0\n\
             Section: database\n\
             Priority: optional\n\
@@ -54,7 +54,7 @@ jobs:
             sudo apt update && sudo apt -y install postgresql-13
             sudo apt update && sudo apt install build-essential libicu-dev \
                 postgresql-server-dev-13 -y --no-install-recommends
-            sudo apt update && sudo apt install libpq-dev
+            #sudo apt update && sudo apt install libpq-dev
             pwd
             cd "$foldername"            
             echo "running make in:"
