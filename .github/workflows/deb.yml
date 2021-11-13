@@ -26,7 +26,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Pulls in icu_ext extension
         run: |
-            #wget https://github.com/dverite/icu_ext/archive/refs/tags/v1.6.2.tar.gz
             wget https://github.com/omniti-labs/pg_jobmon/archive/refs/tags/v1.4.1.tar.gz
             filename=$(ls *.tar.gz)
             echo "$filename"
@@ -34,16 +33,18 @@ jobs:
             foldername=$(ls -d */)
             echo "$foldername"
             mkdir "$foldername"/DEBIAN/
-            printf "Package: postgresql-13-icu-ext\n\
+            printf "Package: postgresql-13-pg_jobmon\n\
             Version: 1.0.0\n\
             Section: database\n\
             Priority: optional\n\
             Architecture: amd64\n\
             Depends: postgresql-13\n\
             Maintainer: Stevan Vanderwerf <github@vanderling.com>\n\
-            Description: PostgreSQL extension exposing functionality from the ICU library\n\
-             icu_ext is an extension to expose functionality from ICU to PostgreSQL\n\
-             applications.\n" > "$foldername"/DEBIAN/control
+            Description: pg_jobmon is a PostgreSQL extension designed to add autonomous \n\
+              logging capabilities to transactions and functions. The logging is done in a \n\
+              NON-TRANSACTIONAL method, so that if your function/transaction fails for any reason, \n\
+              any information written to that point will be kept in the log tables rather than \n\
+              rolled back.\n" > "$foldername"/DEBIAN/control
             
             # import postgres repository key
             sudo apt install curl ca-certificates gnupg
@@ -59,13 +60,10 @@ jobs:
             echo "running make in:"
             pwd
             #echo "contents of working directory:"
-            #find / -iname pgsql -type f
-            #find / -iname postgresql -type f
             echo "copying include"
-            #sudo cp -r /usr/local/pgsql/include/server /usr/include/postgresql/13/server
-            #env PG_CONFIG=/usr/bin/pg_config make && sudo make install
-            env PG_CONFIG=/usr/bin/pg_config make && make installcheck && make install
+            #env PG_CONFIG=/usr/bin/pg_config 
+            make && make install
             
-            #cd ../ && sudo dpkg-deb --build "$foldername"
-            #ls *.deb
-            #echo "finished successfully"
+            cd ../ && sudo dpkg-deb --build "$foldername"
+            ls *.deb
+            echo "finished successfully"
