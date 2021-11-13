@@ -41,10 +41,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          draft: true
-          prerelease: false
-          release_name: ${{ steps.version.outputs.version }}
-          tag_name: ${{ github.ref }}
+          # upload_url: ${{ needs.create_release.outputs.upload_url }}
+          # draft: true
+          # prerelease: false
+          # release_name: ${{ steps.version.outputs.version }}
+          # tag_name: ${{ github.ref }}
           #body_path: CHANGELOG.md
-          path: ./pg_jobmon-*.[debrpm]
+          path: ./pg_jobmon-*.deb
