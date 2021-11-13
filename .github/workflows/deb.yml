@@ -3,13 +3,16 @@
 name: CI
 
 # Controls when the workflow will run
-on:
+on: 
+  repository_dispatch:
+    types:
+      - create-deb-rpm-package
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  # workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,7 +27,7 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      - name: Pulls in icu_ext extension
+      - name: Pulls in pg_jobmon extension
         run: |
           chmod +x ./create_deb.sh
           ./create_deb.sh
