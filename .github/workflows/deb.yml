@@ -26,7 +26,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Pulls in icu_ext extension
         run: |
-            wget https://github.com/dverite/icu_ext/archive/refs/tags/v1.6.2.tar.gz
+            #wget https://github.com/dverite/icu_ext/archive/refs/tags/v1.6.2.tar.gz
+            wget https://github.com/theory/kv-pair/archive/refs/tags/v0.1.7.tar.gz
             filename=$(ls *.tar.gz)
             echo "$filename"
             tar xvzf "$filename"
@@ -58,12 +59,13 @@ jobs:
             echo "running make in:"
             pwd
             #echo "contents of working directory:"
-            find / -iname pgsql -type f
-            find / -iname postgresql -type f
+            #find / -iname pgsql -type f
+            #find / -iname postgresql -type f
             echo "copying include"
             #sudo cp -r /usr/local/pgsql/include/server /usr/include/postgresql/13/server
             #env PG_CONFIG=/usr/bin/pg_config make && sudo make install
-
+            env PG_CONFIG=/usr/bin/pg_config make && make installcheck && make install
+            
             #cd ../ && sudo dpkg-deb --build "$foldername"
             #ls *.deb
             #echo "finished successfully"
