@@ -7,7 +7,7 @@ pg_version='14'
 deb_rpm_version='1.0.0'
 
 # download and unpack source of the postgres extension
-wget https://github.com/omniti-labs/pg_jobmon/archive/refs/tags/v"$pg_jobmon_version".tar.gz
+wget https://github.com/omniti-labs/pg_jobmon/archive/refs/tags/"$pg_jobmon_version".tar.gz
 filename=$(ls *.tar.gz)
 tar xvzf "$filename"
 folder=$(ls -d */)
