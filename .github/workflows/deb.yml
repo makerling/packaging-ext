@@ -51,15 +51,14 @@ jobs:
             sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
             sudo apt update && sudo apt -y install postgresql-13
             sudo apt update && sudo apt install build-essential libicu-dev \
-                postgresql-server-dev-13 libpq-dev -y --no-install-recommends
-            #sudo find / -iname 'pg_config' -type f
+                postgresql-server-dev-13 -y --no-install-recommends
             pwd
             cd "$foldername"            
             echo "running make in:"
             pwd
             echo "contents of working directory:"
             ls
-            env PG_CONFIG=/path/to/pg_config make && sudo make install
+            env PG_CONFIG=/usr/bin/pg_config make && sudo make install
 
             cd ../ && sudo dpkg-deb --build "$foldername"
             ls *.deb
