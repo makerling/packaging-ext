@@ -47,4 +47,4 @@ jobs:
           # release_name: ${{ steps.version.outputs.version }}
           # tag_name: ${{ github.ref }}
           #body_path: CHANGELOG.md
-          path: ./pg_jobmon-*.deb
+          path: ./pg_jobmon-1.4.1.deb
