@@ -58,12 +58,12 @@ jobs:
             echo "running make in:"
             pwd
             #echo "contents of working directory:"
-            ls /usr/local/pgsql/include/server
-            ls /usr/include/postgresql/13/server
+            find / -iname pgsql -type f
+            find / -iname postgresql -type f
             echo "copying include"
-            sudo cp -r /usr/local/pgsql/include/server /usr/include/postgresql/13/server
-            env PG_CONFIG=/usr/bin/pg_config make && sudo make install
+            #sudo cp -r /usr/local/pgsql/include/server /usr/include/postgresql/13/server
+            #env PG_CONFIG=/usr/bin/pg_config make && sudo make install
 
-            cd ../ && sudo dpkg-deb --build "$foldername"
-            ls *.deb
-            echo "finished successfully"
+            #cd ../ && sudo dpkg-deb --build "$foldername"
+            #ls *.deb
+            #echo "finished successfully"
