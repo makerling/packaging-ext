@@ -32,3 +32,19 @@ jobs:
           chmod +x ./create_deb.sh
           ./create_deb.sh
         shell: bash
+  release:
+    name: Release on Github
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload release assets
+        uses: actions/upload-artifact@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          draft: true
+          prerelease: false
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref }}
+          #body_path: CHANGELOG.md
+          path: ./pg_jobmon-*.[debrpm]
