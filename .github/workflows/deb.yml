@@ -27,7 +27,7 @@ jobs:
       - name: Pulls in icu_ext extension
         run: |
             #wget https://github.com/dverite/icu_ext/archive/refs/tags/v1.6.2.tar.gz
-            wget https://github.com/theory/kv-pair/archive/refs/tags/v0.1.7.tar.gz
+            wget https://github.com/omniti-labs/pg_jobmon/archive/refs/tags/v1.4.1.tar.gz
             filename=$(ls *.tar.gz)
             echo "$filename"
             tar xvzf "$filename"
