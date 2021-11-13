@@ -37,4 +37,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: ./pg_jobmon-1.4.1.deb
+          path: ./pg_jobmon-*.???
