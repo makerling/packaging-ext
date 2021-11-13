@@ -33,6 +33,7 @@ jobs:
           ./create_deb.sh
         shell: bash
   release:
+    needs: jobs
     name: Release on Github
     runs-on: ubuntu-latest
     steps:
