@@ -37,4 +37,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: ./pg_jobmon-*.???
+          path: ./pg_jobmon-*.???        
