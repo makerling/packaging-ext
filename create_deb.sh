@@ -13,13 +13,13 @@ tar xvzf "$filename"
 folder=$(ls -d */)
 foldername=${folder:0:-1}
 
-# # install postgres and build tools
-# sudo apt install curl ca-certificates gnupg
-# curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
-# sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-# sudo apt update && sudo apt -y install postgresql-"$pg_version"
-# sudo apt update && sudo apt install build-essential libicu-dev \
-#     postgresql-server-dev-"$pg_version" -y --no-install-recommends
+# install postgres and build tools
+sudo apt install curl ca-certificates gnupg
+curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+sudo apt update && sudo apt -y install postgresql-"$pg_version"
+sudo apt update && sudo apt install build-essential libicu-dev \
+    postgresql-server-dev-"$pg_version" -y --no-install-recommends
 
 # build extension from source
 cd "$foldername"
@@ -46,8 +46,8 @@ sudo dpkg-deb --build "$foldername"
 
 echo "starting rpm packaging"
 
-# sudo apt-get update && sudo apt-get install ruby ruby-dev rubygems gcc make rpm
-# sudo gem install --no-document fpm
+sudo apt-get update && sudo apt-get install ruby ruby-dev rubygems gcc make rpm
+sudo gem install --no-document fpm
 fpm --input-type dir --output-type rpm  \
     --version "$pg_jobmon_version" \
     --package pg_jobmon-"$pg_jobmon_version".rpm \
