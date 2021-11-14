@@ -1,0 +1,21 @@
+name: CI
+on: 
+  repository_dispatch:
+    types:
+      - create-deb-rpm-package
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Pulls in pg_jobmon extension
+        run: |
+          chmod +x ./create_deb_rpm.sh
+          ./create_deb_rpm.sh
+        shell: bash
+      - name: Upload release assets
+        uses: actions/upload-artifact@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: ./pg_jobmon-[0-9].[0-9].[0-9].[dr][ep][bm]        
