@@ -14,11 +14,11 @@ folder=$(ls -d */)
 foldername=${folder:0:-1}
 
 # install postgres and build tools
-sudo apt install curl ca-certificates gnupg
+sudo apt-get install curl ca-certificates gnupg
 curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-sudo apt update && sudo apt -y install postgresql-"$pg_version"
-sudo apt update && sudo apt install build-essential libicu-dev \
+sudo apt-get update && sudo apt-get -y install postgresql-"$pg_version"
+sudo apt-get update && sudo apt-get install build-essential libicu-dev \
     postgresql-server-dev-"$pg_version" -y --no-install-recommends
 
 # build extension from source
@@ -54,5 +54,5 @@ fpm --input-type dir --output-type rpm  \
     --depends "rh-postgresql"$pg_version"-postgresql" \
     --name pg_jobmon-"$pg_jobmon_version" \
     "$foldername"/install
-ls
+
 echo "finished successfully"
