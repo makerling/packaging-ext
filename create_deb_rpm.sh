@@ -46,7 +46,7 @@ sudo dpkg-deb --build "$foldername"
 
 echo "starting rpm packaging"
 
-sudo apt-get update && sudo apt-get install ruby ruby-dev rubygems gcc make rpm
+sudo apt-get update && sudo apt-get install ruby ruby-dev rubygems rpm
 sudo gem install --no-document fpm
 fpm --input-type dir --output-type rpm  \
     --version "$pg_jobmon_version" \
