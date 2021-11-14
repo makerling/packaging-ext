@@ -2,23 +2,22 @@
 
 source .env
 
-response=$(curl -H "Accept: application/vnd.github.everest-preview+json" \
+response=$(curl -s -H "Accept: application/vnd.github.everest-preview+json" \
     -H "Authorization: token "$token"" \
     --request POST \
     --data '{"event_type": "create-deb-rpm-package"}' \
     https://api.github.com/repos/makerling/packaging-ext/dispatches \
     --write-out "%{http_code}\n")
 
-echo
-echo $response
-echo
-
 if [ "$response" == 204 ]
 then
-    echo "github actions workflow has been triggered (204)"
+    echo -e "github actions workflow has been triggered (204)\n\
+navigate to the following link to download the .deb/.rpm artifacts:\n\
+https://github.com/makerling/packaging-ext/actions"
+
 elif [ "$response" == 422 ]
 then
     echo "validation failed, check your token settings (422)"
 else
-    echo -e "there was an issue with the request:\n"$response"\n"
+    echo -e "there was an issue with the request:\n"$response""
 fi
