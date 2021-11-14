@@ -54,5 +54,5 @@ fpm --input-type dir --output-type rpm  \
     --depends "rh-postgresql"$pg_version"-postgresql" \
     --name pg_jobmon-"$pg_jobmon_version" \
     "$foldername"/install
-
+ls
 echo "finished successfully"
