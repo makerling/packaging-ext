@@ -9,7 +9,7 @@ This project uses Github Actions to create a .deb and .rpm artifact of the postg
 	
 ## Technologies
 Project is created with:
-* bash: 12.3
+* bash: 
 * ruby (fpm library): 2.33
 * Ubuntu runner (Github Actions): 20.04
 	
@@ -19,3 +19,6 @@ To run this project, clone it locally and run
 $ bash start_pipeline.sh
 ```
 The resulting artifacts can be accessed in the 'artifacts' section of each pipeline run
+
+## Roadmap
+Implement additional step of installing the packages in a docker container with verification steps to test funtionality of packages.  
